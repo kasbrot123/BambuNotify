@@ -1,21 +1,21 @@
 # BambuNotify
 
-Leichtgewichtiges Python-Skript (optional als Docker-Container), das den lokalen MQTT-Status eines Bambu Lab 3D-Druckers überwacht und bei abgeschlossenem oder fehlgeschlagenem Druck eine Benachrichtigung per Telegram sendet.
+Lightweight Python script (optionally packaged as a Docker container) that monitors the local MQTT status of a Bambu Lab 3D printer and sends a Telegram notification when a print finishes or fails.
 
 ## Features
 
-- Lokale Überwachung über Bambu Lab MQTT (Port `8883`, TLS)
-- Telegram-Benachrichtigung bei Wechsel von `RUNNING`/`PAUSE` auf `FINISH` oder `FAILED`
-- Konfigurierbar über Umgebungsvariablen / `.env`-Datei
-- Lauffähig direkt per Python oder als Docker-Container
+- Local monitoring via Bambu Lab MQTT (port `8883`, TLS)
+- Telegram notifications on status changes from `RUNNING`/`PAUSE` to `FINISH` or `FAILED`
+- Configurable via environment variables / `.env` file
+- Runs directly with Python or inside a Docker container
 
-## Voraussetzungen
+## Prerequisites
 
-- **Bambu Lab Drucker** im lokalen Netzwerk (IP-Adresse, 15-stellige Seriennummer und 8-stelliger Access Code)
-- **Telegram Bot Token** (über [@BotFather](https://t.me/BotFather) mit `/newbot`)
-- **Telegram Chat-ID** (z. B. über `https://api.telegram.org/bot<BOT_TOKEN>/getUpdates` nach der ersten Nachricht an den Bot)
+- **Bambu Lab printer** on your local network (IP address, 15-character serial number, and 8-character access code)
+- **Telegram Bot Token** (created via [@BotFather](https://t.me/BotFather) using `/newbot`)
+- **Telegram Chat ID** (available via `https://api.telegram.org/bot<BOT_TOKEN>/getUpdates` after sending a first message to your bot)
 
-## Projektstruktur
+## Project Structure
 
 ```text
 BambuNotify/
@@ -27,40 +27,40 @@ BambuNotify/
 └── README.md
 ```
 
-## Einrichtung & Start
+## Setup & Usage
 
-### Variante A: Mit Docker (empfohlen für Dauerbetrieb)
+### Option A: With Docker (Recommended for Continuous Operation)
 
-1. Repository klonen und in den Ordner wechseln:
+1. Clone the repository and navigate into the project directory:
    ```bash
-   git clone <URL-ZU-DEINEM-REPO>/BambuNotify.git
+   git clone <YOUR-REPO-URL>/BambuNotify.git
    cd BambuNotify
    ```
-2. `.env`-Datei aus der Vorlage erstellen und ausfüllen:
+2. Create a `.env` file from the template and fill in your credentials:
    ```bash
    cp .env.example .env
    ```
-3. Container bauen und im Hintergrund starten:
+3. Build and start the container in the background:
    ```bash
    docker compose up -d --build
    ```
-4. Logs prüfen:
+4. View the logs:
    ```bash
    docker compose logs -f
    ```
 
-### Variante B: Direkt mit Python
+### Option B: Run Directly with Python
 
-1. Abhängigkeit installieren:
+1. Install the required dependency:
    ```bash
    pip install paho-mqtt
    ```
-2. Umgebungsvariablen setzen (bzw. `.env` laden) und Skript starten:
+2. Export your environment variables (or load `.env`) and start the script:
    ```bash
    python -u bambu_notify.py
    ```
 
-## Hinweise
+## Notes
 
-- **Access Code:** Wird der LAN Access Code am Druckerdisplay neu generiert, muss er in der `.env`-Datei aktualisiert und der Dienst neu gestartet werden.
-- **Sicherheit:** Die `.env`-Datei enthält Zugangsdaten und ist über `.gitignore` von Git ausgeschlossen.
+- **Access Code:** If the LAN access code is regenerated on the printer's display, update `ACCESS_CODE` in your `.env` file and restart the service.
+- **Security:** Your `.env` file contains sensitive credentials and is excluded from version control via `.gitignore`.
