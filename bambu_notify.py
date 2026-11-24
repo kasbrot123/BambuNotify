@@ -14,12 +14,21 @@ CHAT_ID = os.environ["CHAT_ID"]
 
 last_state = None
 
+
+def send_your_messenger(text: str):
+    pass
+
+
 def send_telegram(text: str):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     data = urllib.parse.urlencode({"chat_id": CHAT_ID, "text": text}).encode("utf-8")
     req = urllib.request.Request(url, data=data)
     with urllib.request.urlopen(req, timeout=10) as resp:
         resp.read()
+
+def send_notification(text: str):
+    send_telegram(text)
+    send_your_messenger(text)
 
 def on_connect(client, userdata, flags, reason_code, properties=None):
     print(f"Verbunden mit Drucker (Code: {reason_code})")
