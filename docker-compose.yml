@@ -1,13 +1,6 @@
 services:
   bambu-notify:
     build: .
-    restart: unless-stopped
-
-
-
-services:
-  bambu-notify:
-    build: .
     container_name: bambu-notify
     restart: unless-stopped
     env_file:
