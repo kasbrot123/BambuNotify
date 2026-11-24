@@ -33,7 +33,7 @@ BambuNotify/
 
 1. Clone the repository and navigate into the project directory:
    ```bash
-   git clone <YOUR-REPO-URL>/BambuNotify.git
+   git clone https://github.com/kasbrot123/BambuNotify.git
    cd BambuNotify
    ```
 2. Create a `.env` file from the template and fill in your credentials:
